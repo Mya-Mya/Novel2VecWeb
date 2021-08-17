@@ -8,12 +8,12 @@
             <div class="col-md-6">
                 <label class="form-label">足す小説</label>
                 <input class="form-control" type="text" name="positive_titles_text"
-                value="{{initial_positive_titles_text}}" placeholder="スペースで区切って複数書く">
+                value="{{initial_positive_titles_text}}" placeholder="スペース区切り / 個人情報を書き込まない">
             </div>
             <div class="col-md-6">
                 <label class="form-label">引く小説</label>
                 <input class="form-control" type="text" name="negative_titles_text"
-                    value="{{initial_negative_titles_text}}" placeholder="スペースで区切って複数書く">
+                    value="{{initial_negative_titles_text}}" placeholder="スペース区切り / 個人情報を書き込まない">
             </div>
             <div class="col-12 mt-3">
                 <input class="w-100 h-100 btn btn-outline-primary" type="submit" value="計算">
@@ -22,12 +22,18 @@
     </div>
 </div>
 
-<div class="container m-3">
+<div class="container mt-3">
     {% if any_unknown_titles %}
     {% include 'on_any_unknown_titles.html' %}
     {% else %}
     {% include 'show_similar_novels.html' %}
     {% endif %}
+</div>
+
+<div class="fluid-container bg-light w-100">
+    <div class="container my-3">
+        <a href="https://github.com/Mya-Mya/Novel2VecWeb/blob/main/README.md" class="text-primary">Novel2Vecについて</a>
+    </div>
 </div>
 
 {% endblock %}
