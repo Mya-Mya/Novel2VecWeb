@@ -1,0 +1,11 @@
+<h3 class="text-danger">分からない小説がありました</h3>
+<table class="table table-striped m-3">
+    <tbody>
+        {% for title in unknown_titles %}
+        <tr>
+            <th scope="row">{{title}}</th>
+        </tr>
+        {% endfor %}
+    </tbody>
+
+</table>

@@ -1,0 +1,15 @@
+<h3 class="text-dark">似ている小説</h3>
+{% if search_query_is_empty %}
+<p>計算を始めよう</p>
+{%else%}
+<table class="table table-striped m-3">
+    <tbody>
+        {% for x in similar_novels %}
+        <tr>
+            <th scope="row">{{x.title}}</th>
+            <th scope="row">{{x.score}}</th>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}

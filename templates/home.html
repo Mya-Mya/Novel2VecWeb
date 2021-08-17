@@ -1,0 +1,33 @@
+{% extends 'base_page.html' %}
+{% block body %}
+
+<div class="fluid-container w-100 sticky-top bg-light">
+    <div class="container">
+        <h3 class="my-3">Novel2Vec</h3>
+        <form class="row" method="POST" action={{search_url}}>
+            <div class="col-md-6">
+                <label class="form-label">足す小説</label>
+                <input class="form-control" type="text" name="positive_titles_text"
+                value="{{initial_positive_titles_text}}" placeholder="スペースで区切って複数書く">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">引く小説</label>
+                <input class="form-control" type="text" name="negative_titles_text"
+                    value="{{initial_negative_titles_text}}" placeholder="スペースで区切って複数書く">
+            </div>
+            <div class="col-12 mt-3">
+                <input class="w-100 h-100 btn btn-outline-primary" type="submit" value="計算">
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="container m-3">
+    {% if any_unknown_titles %}
+    {% include 'on_any_unknown_titles.html' %}
+    {% else %}
+    {% include 'show_similar_novels.html' %}
+    {% endif %}
+</div>
+
+{% endblock %}
