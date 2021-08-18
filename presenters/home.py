@@ -18,12 +18,12 @@ def __render_home() -> Response:
         model.session_manager.create_session()
     sd: model.Novel2VecWrapper = model.session_manager.get_session_data()
     context = dict(
-        initial_positive_titles_text=' '.join(sd.sq.positive),
-        initial_negative_titles_text=' '.join(sd.sq.negative),
+        initial_positive_titles_text=' '.join(sd.positive_titles),
+        initial_negative_titles_text=' '.join(sd.negative_titles),
         similar_novels=sd.get_similar_novels(),
         any_unknown_titles=sd.any_unknown_titles(),
         unknown_titles=sd.get_unknown_titles(),
-        search_query_is_empty=sd.sq.is_empty(),
+        search_query_is_empty=sd.is_search_query_empty(),
 
         search_url=url_for(f'{app.name}.{__search_novels.__name__}')
     )
@@ -35,11 +35,9 @@ def __search_novels() -> Response:
     if not model.session_manager.has_session():
         model.session_manager.create_session()
     sd: model.Novel2VecWrapper = model.session_manager.get_session_data()
-
-    sq: model.SearchQuery = model.SearchQuery(
-        positive=request.form['positive_titles_text'].split(),
-        negative=request.form['negative_titles_text'].split(),
+    sd.set_search_query(
+        positive_titles=request.form['positive_titles_text'].split(),
+        negative_titles=request.form['negative_titles_text'].split()
     )
-
-    sd.set_search_query(sq)
+    model.session_manager.set_session_data(sd)
     return redirect(url_for(f'{app.name}.{__render_home.__name__}'))
