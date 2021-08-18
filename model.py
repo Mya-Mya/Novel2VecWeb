@@ -7,7 +7,7 @@ import json
 @dataclass
 class SimilarNovel:
     title: str
-    score: float
+    score: str
 
 
 novel2vec: Word2Vec = Word2Vec.load(
@@ -66,7 +66,7 @@ class Novel2VecWrapper:
         )
         similar_novels: List[SimilarNovel] = []
         for title, score in model_result:
-            similar_novel = SimilarNovel(title, score)
+            similar_novel = SimilarNovel(title, '{:.3f}'.format(score))
             similar_novels.append(similar_novel)
         return similar_novels
 
